@@ -5,10 +5,12 @@ const cors=require("cors");
 const port=process.env.PORT || 8080;
 const connect=require("./config/db")
 const usersignup=require("./controller/user.controller");
-const center=require("./controller/centerData.controller")
+const center=require("./controller/centerData.controller");
+const pats=require("./controller/pat.controller");
 app.use(express.json());
 app.use(cors({origin:"*"}));
 app.use("/create",center);
+app.use("/pats",pats);
 app.use("/authentication",usersignup)
 app.listen(port,async()=>{
     try {
