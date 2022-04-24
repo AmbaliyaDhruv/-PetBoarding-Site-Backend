@@ -46,4 +46,22 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id",async(req,res)=>{
+  try {
+       const center = await Center.findByIdAndDelete(req.params.id).lean().exec();
+        res.status(200).send(center);
+  } catch (error) {
+    return res.status(400).send(error.message)
+  }
+})
+
+router.patch("/:id",async(req,res)=>{
+  try {
+    const center = await Center.findByIdAndUpdate(req.params.id,req.body,{new:true}).lean().exec();
+    res.status(200).send(center);
+  } catch (error) {
+    return res.status(400).send(error.message)
+  }
+})
+
 module.exports = router;
