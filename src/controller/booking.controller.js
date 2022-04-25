@@ -3,7 +3,7 @@ const express=require("express");
 
 const router=express.Router();
 
-const Booking=require("../model/booking.model");
+const Booking=require("../model/Booking.model");
 
 router.get("/",async(req,res)=>{
     try {
