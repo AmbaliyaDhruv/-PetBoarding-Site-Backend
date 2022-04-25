@@ -6,6 +6,7 @@ const patSchema=mongoose.Schema({
     type:{type:String,required:true},
     age:{type:Number,required:true},
     weight:{type:Number,required:true},
+    userId:{type:mongoose.Schema.Types.ObjectId,ref:"User",required:true},
 },{
     versionKey:false,
     timestamps:true

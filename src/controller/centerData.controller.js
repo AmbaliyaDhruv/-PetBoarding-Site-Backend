@@ -8,7 +8,10 @@ const Center = require("../model/centerData.model");
 router.get("/", async (req, res) => {
   try {
    
-    const {city,costPerDay} = req.query;
+    let {city,costPerDay,page} = req.query;
+    if(!page){
+      page=1;
+  }
     let query = {};
     if (city) {
       query.city = city;
@@ -17,14 +20,26 @@ router.get("/", async (req, res) => {
     if(costPerDay){
       order={costPerDay:costPerDay}
     }
+    let limit=4
+    const skip=(page-1)*limit;
     
-    const centers = await Center.find(query).sort(order).lean().exec();
+    const centers = await Center.find(query).sort(order).limit(limit).skip(skip).lean().exec();
 
     res.status(200).send(centers);
   } catch (error) {
     res.send(error.message);
   }
 });
+
+router.get("/count",async(req,res)=>{
+  try { 
+
+    const count = await Center.countDocuments();
+     return res.send({count})
+  } catch (error) {
+    return res.send(error.message)
+  }
+})
 
 router.get("/:id",async(req,res)=>{
   try {

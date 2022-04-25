@@ -8,17 +8,9 @@ const Pat = require("../model/pat.model");
 router.get("/", async (req, res) => {
   try {
    
-    const {city,costPerDay} = req.query;
-    let query = {};
-    if (city) {
-      query.city = city;
-    }
-    let order=null
-    if(costPerDay){
-      order={costPerDay:costPerDay}
-    }
+   
     
-    const pat = await Pat.find(query).sort(order).lean().exec();
+    const pat = await Pat.find(req.query).lean().exec();
 
     res.status(200).send(pat);
   } catch (error) {
